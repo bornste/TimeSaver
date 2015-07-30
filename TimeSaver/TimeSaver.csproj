@@ -18,6 +18,13 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
+    <UpdateAssemblyVersion>False</UpdateAssemblyVersion>
+    <UpdateAssemblyFileVersion>False</UpdateAssemblyFileVersion>
+    <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
+    <AssemblyFileVersionSettings>
+    </AssemblyFileVersionSettings>
+    <AssemblyVersionSettings>
+    </AssemblyVersionSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -28,6 +35,11 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <UpdateAssemblyVersion>True</UpdateAssemblyVersion>
+    <UpdateAssemblyFileVersion>False</UpdateAssemblyFileVersion>
+    <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
+    <AssemblyFileVersionSettings>None.None.None.Increment</AssemblyFileVersionSettings>
+    <AssemblyVersionSettings>None.None.None.Increment</AssemblyVersionSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -128,7 +140,9 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>cd "$(TargetDir)"
-copy $(TargetFileName) $(TargetName).scr</PostBuildEvent>
+    <PostBuildEvent>if $(ConfigurationName) == Release (
+   cd "$(TargetDir)"
+   copy $(TargetFileName) $(SolutionDir)$(TargetName).scr
+)</PostBuildEvent>
   </PropertyGroup>
 </Project>
