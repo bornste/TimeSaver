@@ -2,7 +2,7 @@
 Windows Screensaver that displays the current time and date.
 
 ### Installation
-- Download "<a href="TimeSaver.scr">TimeSaver.scr</a>"
+- Download "<a href="raw/master/TimeSaver.scr">TimeSaver.scr</a>"
 - Right click the downloaded file and choose "Install"
 - Have fun ^^
 
