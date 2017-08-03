@@ -17,7 +17,7 @@ namespace TimeSaver
         static TimeInfo()
         {
             Format = CultureInfo.CurrentCulture.DateTimeFormat;
-            HasAMPM = Format.AMDesignator.Length > 0;
+            HasAMPM = Format.ShortTimePattern.Contains("t");
 
             // create date pattern without day
             string datePattern = Format.LongDatePattern;
@@ -37,7 +37,7 @@ namespace TimeSaver
         public TimeInfo()
         {
             DateTime now = DateTime.Now;
-            
+
             // get the texts to display
             Hours = now.ToString(HasAMPM ? "hh" : "HH");
             Minutes = now.ToString("mm");

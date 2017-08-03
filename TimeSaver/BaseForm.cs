@@ -71,7 +71,7 @@ namespace TimeSaver
         /// <param name="e">An <see cref="T:System.EventArgs"/> that contains the event data.</param>
         protected override void OnLoad(EventArgs e)
         {
-            this.Transparency = FadeOnShow ? (byte)0 : (byte)255;
+            Transparency = FadeOnShow ? (byte)0 : (byte)255;
 
             // make it a layered window
             MakeLayeredWindow();
@@ -130,13 +130,13 @@ namespace TimeSaver
         /// </summary>
         protected void MakeLayeredWindow()
         {
-            int exStyle = NativeMethods.GetWindowLong(this.Handle, GetWindowLong.GWL_EXSTYLE);
+            int exStyle = NativeMethods.GetWindowLong(Handle, GetWindowLong.GWL_EXSTYLE);
 
             // make layered
             exStyle |= WindowExStyles.WS_EX_LAYERED;
 
             // set new extended style
-            NativeMethods.SetWindowLong(this.Handle, GetWindowLong.GWL_EXSTYLE, exStyle);
+            NativeMethods.SetWindowLong(Handle, GetWindowLong.GWL_EXSTYLE, exStyle);
             IsLayeredWindow = true;
 
             // apply transparency (that removes flickering)
@@ -149,15 +149,15 @@ namespace TimeSaver
         protected virtual void ApplyTransparency()
         {
             // not a layered window?
-            if (!this.IsLayeredWindow || this.DesignMode)
+            if (!IsLayeredWindow || DesignMode)
                 return;
 
             // disposed?
-            if (this.Disposing || this.IsDisposed)
+            if (Disposing || IsDisposed)
                 return;
 
             NativeMethods.SetLayeredWindowAttributes(
-                this.Handle, 0, this.Transparency, LayeredWindowAttributes.LWA_ALPHA);
+                Handle, 0, Transparency, LayeredWindowAttributes.LWA_ALPHA);
         }
 
         /// <summary>
@@ -175,7 +175,7 @@ namespace TimeSaver
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void OnFadeTimer_Tick(object sender, EventArgs e)
         {
-            int transparency = this.Transparency;
+            int transparency = Transparency;
 
             // fade in or out?
             if (m_fadeIn)
@@ -203,11 +203,11 @@ namespace TimeSaver
                 }
             }
 
-            this.Transparency = (byte)transparency;
+            Transparency = (byte)transparency;
 
             // close?
             if (!m_fadeIn && m_closeAfterFade && !m_fadeTimer.Enabled)
-                this.Close();
+                Close();
         }
 
         // private variables

@@ -48,7 +48,7 @@ namespace TimeSaver
         /// <param name="activity">The performed activity by the user.</param>
         void Notify(UserActivities activity);
     }
-    
+
     /// <summary>
     /// Provides notifications about user activity, i.e. keyboard and mouse events.
     /// </summary>
@@ -74,16 +74,16 @@ namespace TimeSaver
         {
             // set subscriber
             m_subscriber = subscriber;
-            
+
             // set requested activities
             m_activities = activities;
 
             // split up activities for better performance
-            m_monitorMouseClickEvents = 
+            m_monitorMouseClickEvents =
                 (m_activities & UserActivities.MouseClick) == UserActivities.MouseClick;
-            m_monitorMouseMoveEvents = 
+            m_monitorMouseMoveEvents =
                 (m_activities & UserActivities.MouseMove) == UserActivities.MouseMove;
-            m_monitorKeyboardEvents = 
+            m_monitorKeyboardEvents =
                 (m_activities & UserActivities.Keyboard) == UserActivities.Keyboard;
         }
 
@@ -93,8 +93,8 @@ namespace TimeSaver
         public bool Active
         {
             get { return m_active; }
-            set 
-            { 
+            set
+            {
                 // something else?
                 if (m_active != value)
                 {
@@ -135,11 +135,11 @@ namespace TimeSaver
         #region IMessageFilter Members
 
         /// <summary>
-        /// Filters out a message before it is dispatched. 
+        /// Filters out a message before it is dispatched.
         /// </summary>
         /// <param name="m">The message to be dispatched. You cannot modify this message.</param>
         /// <returns>
-        /// true to filter the message and stop it from being dispatched; 
+        /// true to filter the message and stop it from being dispatched;
         /// false to allow the message to continue to the next filter or control.</returns>
         bool IMessageFilter.PreFilterMessage(ref Message m)
         {
@@ -186,7 +186,7 @@ namespace TimeSaver
                 }
             }
 
-            return false;            
+            return false;
         }
 
         #endregion // IMessageFilter Members

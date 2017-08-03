@@ -70,13 +70,13 @@ namespace TimeSaver
                 using (FileStream fs = new FileStream(FilePath, FileMode.Open, FileAccess.Read))
                 {
                     Settings settings = m_serializer.Deserialize(fs) as Settings;
-                    
+
                     // copy the settings into this class
-                    this.TextColor = settings.TextColor;
-                    this.BackColor = settings.BackColor;
-                    this.DisplayMode = settings.DisplayMode;
-                    this.BlinkTimeSeparator = settings.BlinkTimeSeparator;
-                    this.UseUpperCase = settings.UseUpperCase;
+                    TextColor = settings.TextColor;
+                    BackColor = settings.BackColor;
+                    DisplayMode = settings.DisplayMode;
+                    BlinkTimeSeparator = settings.BlinkTimeSeparator;
+                    UseUpperCase = settings.UseUpperCase;
                 }
             }
             catch

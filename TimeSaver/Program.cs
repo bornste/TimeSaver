@@ -27,7 +27,7 @@ namespace TimeSaver
             {
                 // get the argument
                 string option = args[0].ToLower(CultureInfo.InvariantCulture).Trim();
-                
+
                 // preview?
                 if (option.StartsWith("/p"))
                 {
@@ -38,7 +38,7 @@ namespace TimeSaver
                     Application.Run(new ScreensaverForm(handle));
                     return;
                 }
-                
+
                 // configure?
                 if (option.StartsWith("/c"))
                 {

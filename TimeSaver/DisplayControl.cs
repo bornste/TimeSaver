@@ -63,10 +63,10 @@ namespace TimeSaver
         public void Initialize()
         {
             // load the settings
-            this.ForeColor = Settings.Instance.TextColor;
-            this.BackColor = Settings.Instance.BackColor;
-            
-            this.Text = string.Empty;
+            ForeColor = Settings.Instance.TextColor;
+            BackColor = Settings.Instance.BackColor;
+
+            Text = string.Empty;
 
             CalculateLayout();
 
@@ -82,17 +82,17 @@ namespace TimeSaver
         {
             if (!m_initialized)
                 Initialize();
-            
+
             bool repaint = false;
 
             // text changed?
-            if (this.Text != text)
+            if (Text != text)
             {
                 if (Settings.Instance.UseUpperCase)
-                    this.Text = text.ToUpper();
+                    Text = text.ToUpper();
                 else
-                    this.Text = text;
-                
+                    Text = text;
+
                 repaint = true;
             }
 
@@ -101,7 +101,7 @@ namespace TimeSaver
             {
                 byte fadeMin = 100;
                 byte fadeMax = 255;
-                
+
                 int mod = (int)Math.Floor(seconds) % 2;
                 byte textAlpha = (byte)(mod == 1 ? fadeMin : fadeMax);
                 if (textAlpha != m_textAlpha)
@@ -125,11 +125,11 @@ namespace TimeSaver
         /// </returns>
         public override Size GetPreferredSize(Size proposedSize)
         {
-            if (this.AutoSize)
+            if (AutoSize)
             {
                 Size preferedSize = proposedSize;
                 if (preferedSize.Height < 1)
-                    preferedSize.Height = this.Height;
+                    preferedSize.Height = Height;
 
                 preferedSize.Width = (int)Math.Ceiling(
                     m_contentSize.Width / m_contentSize.Height * preferedSize.Height);
@@ -155,7 +155,7 @@ namespace TimeSaver
         public override bool AutoSize
         {
             get { return base.AutoSize; }
-            set 
+            set
             {
                 if (base.AutoSize != value)
                 {
@@ -207,10 +207,10 @@ namespace TimeSaver
         /// </summary>
         /// <value>The vertical offset.</value>
         [DefaultValue(0)]
-        public int VerticalOffset 
+        public int VerticalOffset
         {
             get { return m_verticalOffset; }
-            set 
+            set
             {
                 if (m_verticalOffset != value)
                 {
@@ -218,7 +218,7 @@ namespace TimeSaver
                     CalculateLayout();
                     Invalidate();
                 }
-            } 
+            }
         }
 
         /// <summary>
@@ -241,8 +241,8 @@ namespace TimeSaver
             CalculateLayout();
 
             // perform a layout if autosizing
-            if (this.AutoSize)
-                base.Size = this.PreferredSize;
+            if (AutoSize)
+                base.Size = PreferredSize;
         }
 
         /// <summary>
@@ -255,8 +255,8 @@ namespace TimeSaver
             CalculateLayout();
 
             // perform a layout if autosizing
-            if (this.AutoSize)
-                base.Size = this.PreferredSize;
+            if (AutoSize)
+                base.Size = PreferredSize;
         }
 
         /// <summary>
@@ -267,7 +267,7 @@ namespace TimeSaver
         {
             Graphics g = e.Graphics;
 
-            e.Graphics.Clear(this.BackColor);
+            e.Graphics.Clear(BackColor);
 
             // get the fore bounds
             Rectangle foreBounds = DisplayRectangle;
@@ -279,7 +279,7 @@ namespace TimeSaver
             // not layouted yet?
             if (m_textBounds.IsEmpty)
                 CalculateLayout();
-            
+
             // backup the graphics state
             GraphicsState state = g.Save();
 
@@ -319,8 +319,8 @@ namespace TimeSaver
         }
 
         /// <summary>
-        /// Setup transforamtion required to transform coordiantes between the given 
-        /// screen coordiantes and world coordinates. As we want to keep the X/Y ration 
+        /// Setup transforamtion required to transform coordiantes between the given
+        /// screen coordiantes and world coordinates. As we want to keep the X/Y ration
         /// of the world coordinate system the scale factor for X and Y are the same.
         /// </summary>
         /// <param name="g">Graphics to set transformation on</param>
@@ -332,7 +332,7 @@ namespace TimeSaver
             if (worldCoords.Height > 0.0F)
                 scaleFactorY = (float)screenCoords.Height / worldCoords.Height;
 
-            // we want to fit the height, therefore the 
+            // we want to fit the height, therefore the
             // Y scale factor is taken
             m_scaleFactor = scaleFactorY;
 
@@ -347,24 +347,24 @@ namespace TimeSaver
         private void CalculateLayout()
         {
             if (FontType != FontType.Custom)
-                this.Font = FontHelper.GetFont(this.FontType);
+                Font = FontHelper.GetFont(FontType);
             else
-                this.ResetFont();
+                ResetFont();
 
             // calculate the text height
-            using (Graphics g = this.CreateGraphics())
+            using (Graphics g = CreateGraphics())
             {
-                SizeF size = g.MeasureString(this.Text, this.Font, int.MaxValue, m_stringFormat);
+                SizeF size = g.MeasureString(Text, Font, int.MaxValue, m_stringFormat);
                 float width;
-                if (this.AutoSize)
+                if (AutoSize)
                     width = size.Width;
                 else
                     width = (Width / (float)Height) * size.Height;
 
                 m_textBounds = new RectangleF(
-                    Padding.Left, 
-                    Padding.Top + VerticalOffset, 
-                    width, 
+                    Padding.Left,
+                    Padding.Top + VerticalOffset,
+                    width,
                     size.Height);
 
                 m_contentSize = m_textBounds.Size + Padding.Size;

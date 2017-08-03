@@ -10,7 +10,7 @@ namespace TimeSaver
     internal static class TimeUpdater
     {
         public static event EventHandler Tick;
-        
+
         static TimeUpdater()
         {
             s_timer = new Timer();
@@ -47,9 +47,7 @@ namespace TimeSaver
         private static void OnTick(object sender, ElapsedEventArgs e)
         {
             Time = new TimeInfo();
-
-            if (Tick != null)
-                Tick(null, EventArgs.Empty);
+            Tick?.Invoke(null, EventArgs.Empty);
         }
 
         // private variables

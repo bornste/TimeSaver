@@ -47,7 +47,7 @@
             this.m_ctlHours.Location = new System.Drawing.Point(0, 88);
             this.m_ctlHours.Margin = new System.Windows.Forms.Padding(0);
             this.m_ctlHours.Name = "m_ctlHours";
-            this.m_ctlHours.Size = new System.Drawing.Size(339, 123);
+            this.m_ctlHours.Size = new System.Drawing.Size(338, 123);
             this.m_ctlHours.TabIndex = 0;
             this.m_ctlHours.Text = "22";
             this.m_ctlHours.TextAlign = System.Drawing.StringAlignment.Far;
@@ -114,11 +114,11 @@
             this.m_ctlSeparator.Font = new System.Drawing.Font("TimeSaver", 30F, System.Drawing.FontStyle.Bold);
             this.m_ctlSeparator.FontType = TimeSaver.FontType.Bold;
             this.m_ctlSeparator.ForeColor = System.Drawing.Color.White;
-            this.m_ctlSeparator.Location = new System.Drawing.Point(339, 88);
+            this.m_ctlSeparator.Location = new System.Drawing.Point(338, 88);
             this.m_ctlSeparator.Margin = new System.Windows.Forms.Padding(0);
             this.m_ctlSeparator.Name = "m_ctlSeparator";
             this.m_ctlSeparator.Padding = new System.Windows.Forms.Padding(2, 10, 2, 12);
-            this.m_ctlSeparator.Size = new System.Drawing.Size(27, 123);
+            this.m_ctlSeparator.Size = new System.Drawing.Size(28, 123);
             this.m_ctlSeparator.TabIndex = 2;
             this.m_ctlSeparator.Text = ":";
             this.m_ctlSeparator.UseFading = true;

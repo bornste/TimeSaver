@@ -32,10 +32,14 @@ namespace TimeSaver
             SetStyle(ControlStyles.UserPaint, true);
 
             // load the settings
-            this.ForeColor = Settings.Instance.TextColor;
-            this.BackColor = Settings.Instance.BackColor;
-            m_pnlLayout.BackColor = this.BackColor;
+            ForeColor = Settings.Instance.TextColor;
+            BackColor = Settings.Instance.BackColor;
+            m_pnlLayout.BackColor = BackColor;
             m_ctlSeparator.UseFading = Settings.Instance.BlinkTimeSeparator;
+
+            // debugger? remove top most flag
+            if (Debugger.IsAttached)
+                TopMost = false;
         }
 
         /// <summary>
@@ -48,7 +52,7 @@ namespace TimeSaver
         public ScreensaverForm(Rectangle bounds, bool isPrimaryMonitor)
             : this()
         {
-            this.Bounds = bounds;
+            Bounds = bounds;
             m_isPrimaryMonitor = isPrimaryMonitor;
 
             // hide the cursor
@@ -65,19 +69,19 @@ namespace TimeSaver
             : this()
         {
             // set the preview window as the parent of this window
-            NativeMethods.SetParent(this.Handle, previewHandle);
+            NativeMethods.SetParent(Handle, previewHandle);
 
             // make this a child window, so when the select screensaver dialog closes, this will also close
-            int style = NativeMethods.GetWindowLong(this.Handle, GetWindowLong.GWL_STYLE);
-            NativeMethods.SetWindowLong(this.Handle, GetWindowLong.GWL_STYLE, style | WindowStyles.WS_CHILD);
+            int style = NativeMethods.GetWindowLong(Handle, GetWindowLong.GWL_STYLE);
+            NativeMethods.SetWindowLong(Handle, GetWindowLong.GWL_STYLE, style | WindowStyles.WS_CHILD);
 
             // set our window's size to the size of our window's new parent
             Rectangle ParentRect;
             NativeMethods.GetClientRect(previewHandle, out ParentRect);
-            this.Size = ParentRect.Size;
+            Size = ParentRect.Size;
 
             // set our location at (0, 0)
-            this.Location = new Point(0, 0);
+            Location = new Point(0, 0);
 
             // preview mode
             m_isPreviewMode = true;
@@ -94,7 +98,7 @@ namespace TimeSaver
             if (activity == UserActivities.MouseMove)
             {
                 Point pos = Control.MousePosition;
-                
+
                 // see if originallocation has been set
                 if (m_originalLocation.X == int.MaxValue && m_originalLocation.Y == int.MaxValue)
                     m_originalLocation = pos;
@@ -124,7 +128,7 @@ namespace TimeSaver
             }
             else
             {
-                TimeUpdater.Tick += new EventHandler(OnTimeUpdater_Tick);
+                TimeUpdater.Tick += OnTimeUpdater_Tick;
                 UpdateValues();
             }
 
@@ -138,8 +142,10 @@ namespace TimeSaver
                 TimeUpdater.Start();
 
                 // track user activities
-                m_userActivities = new UserActivityMonitor(this, UserActivities.All);
-                m_userActivities.Active = true;
+                m_userActivities = new UserActivityMonitor(this, UserActivities.All)
+                {
+                    Active = true
+                };
             }
         }
 
@@ -156,7 +162,7 @@ namespace TimeSaver
         protected override void OnPaint(PaintEventArgs e)
         {
             // clear background
-            e.Graphics.Clear(this.BackColor);
+            e.Graphics.Clear(BackColor);
         }
 
         /// <summary>
@@ -180,7 +186,7 @@ namespace TimeSaver
             if (!m_isPreviewMode)
             {
                 TimeUpdater.Stop();
-                
+
                 if (m_userActivities != null)
                 {
                     m_userActivities.Dispose();
